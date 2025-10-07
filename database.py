@@ -19,7 +19,7 @@ class DatabaseManager:
         """Inicializa o gerenciador de banco de dados."""
         self.client = None
         self.db = None
-        self.connection_string = "mongodb+srv://lucasbissi2006_db_user:UrnlfZcT5p9KsCcI@messageriasegura.c5kahew.mongodb.net/"
+        self.connection_string = ""
         self.database_name = "chat"
     
     def connect(self):
@@ -128,3 +128,4 @@ class DatabaseManager:
 
 # Instância global do gerenciador de banco
 db_manager = DatabaseManager()
+
