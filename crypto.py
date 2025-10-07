@@ -26,39 +26,17 @@ class CryptoManager:
         self.nonce_length = 12  # 96 bits para GCM
     
     def _derive_key(self, password: str, salt: bytes) -> bytes:
-        """
-        Deriva uma chave criptográfica a partir de uma senha usando PBKDF2.
-        
-        Args:
-            password (str): Senha fornecida pelo usuário.
-            salt (bytes): Salt para derivação da chave.
-            
-        Returns:
-            bytes: Chave derivada de 256 bits.
-        """
+      
         kdf = PBKDF2HMAC(
             algorithm=hashes.SHA256(),
             length=self.key_length,
             salt=salt,
-            iterations=100000,  # 100.000 iterações para segurança
+            iterations=100000,  
         )
         return kdf.derive(password.encode('utf-8'))
     
     def encrypt_message(self, message: str, password: str) -> str:
-        """
-        Criptografa uma mensagem usando AES-256-GCM.
-        
-        Args:
-            message (str): Mensagem a ser criptografada.
-            password (str): Chave secreta fornecida pelo usuário.
-            
-        Returns:
-            str: Mensagem criptografada em formato Base64.
-            
-        Raises:
-            ValueError: Se a mensagem ou senha estiverem vazias.
-            Exception: Se houver erro na criptografia.
-        """
+
         if not message or not password:
             raise ValueError("Mensagem e senha não podem estar vazias.")
         
@@ -92,20 +70,7 @@ class CryptoManager:
             raise Exception(f"Falha na criptografia: {str(e)}")
     
     def decrypt_message(self, encrypted_b64: str, password: str) -> str:
-        """
-        Descriptografa uma mensagem usando AES-256-GCM.
-        
-        Args:
-            encrypted_b64 (str): Mensagem criptografada em Base64.
-            password (str): Chave secreta fornecida pelo usuário.
-            
-        Returns:
-            str: Mensagem descriptografada.
-            
-        Raises:
-            ValueError: Se os parâmetros estiverem inválidos.
-            Exception: Se houver erro na descriptografia (chave incorreta).
-        """
+    
         if not encrypted_b64 or not password:
             raise ValueError("Dados criptografados e senha não podem estar vazios.")
         
@@ -141,15 +106,7 @@ class CryptoManager:
             raise Exception("Chave incorreta! Acesso negado.")
     
     def validate_password_strength(self, password: str) -> bool:
-        """
-        Valida a força da senha fornecida.
-        
-        Args:
-            password (str): Senha a ser validada.
-            
-        Returns:
-            bool: True se a senha for forte o suficiente, False caso contrário.
-        """
+     
         if not password:
             return False
         
@@ -165,3 +122,4 @@ class CryptoManager:
 
 # Instância global do gerenciador de criptografia
 crypto_manager = CryptoManager()
+
