@@ -1,7 +1,3 @@
-"""
-Módulo de acesso a dados (Repository Pattern).
-Responsável pela comunicação com o MongoDB para operações CRUD.
-"""
 
 from pymongo.errors import DuplicateKeyError, OperationFailure
 from datetime import datetime
@@ -277,3 +273,4 @@ class MessageRepository:
         except Exception as e:
             logger.error(f"Erro ao buscar mensagem {message_id}: {e}")
             return None
+
