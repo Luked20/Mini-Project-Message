@@ -12,25 +12,12 @@ class UserRepository:
     """Repositório para operações com usuários."""
     
     def __init__(self, database):
-        """
-        Inicializa o repositório de usuários.
-        
-        Args:
-            database: Instância do banco de dados MongoDB.
-        """
+       
         self.db = database
         self.collection = self.db.users
     
     def create_user(self, username: str) -> bool:
-        """
-        Cria um novo usuário no sistema.
-        
-        Args:
-            username (str): Nome de usuário (com @).
-            
-        Returns:
-            bool: True se o usuário foi criado com sucesso, False caso contrário.
-        """
+     
         try:
             user_doc = {
                 "username": username,
@@ -49,15 +36,7 @@ class UserRepository:
             return False
     
     def find_user_by_username(self, username: str) -> Optional[Dict]:
-        """
-        Busca um usuário pelo nome de usuário.
-        
-        Args:
-            username (str): Nome de usuário a ser buscado.
-            
-        Returns:
-            Optional[Dict]: Documento do usuário se encontrado, None caso contrário.
-        """
+   
         try:
             user = self.collection.find_one({"username": username})
             if user:
@@ -71,15 +50,7 @@ class UserRepository:
             return None
     
     def get_all_users(self, exclude_username: str = None) -> List[Dict]:
-        """
-        Retorna todos os usuários cadastrados.
-        
-        Args:
-            exclude_username (str, optional): Username a ser excluído da lista.
-            
-        Returns:
-            List[Dict]: Lista de usuários.
-        """
+  
         try:
             query = {}
             if exclude_username:
@@ -94,42 +65,19 @@ class UserRepository:
             return []
     
     def user_exists(self, username: str) -> bool:
-        """
-        Verifica se um usuário existe no sistema.
-        
-        Args:
-            username (str): Nome de usuário a ser verificado.
-            
-        Returns:
-            bool: True se o usuário existe, False caso contrário.
-        """
+  
         return self.find_user_by_username(username) is not None
 
 class MessageRepository:
     """Repositório para operações com mensagens."""
     
     def __init__(self, database):
-        """
-        Inicializa o repositório de mensagens.
-        
-        Args:
-            database: Instância do banco de dados MongoDB.
-        """
+    
         self.db = database
         self.collection = self.db.messages
     
     def create_message(self, from_user: str, to_user: str, encrypted_content: str) -> bool:
-        """
-        Cria uma nova mensagem no sistema.
-        
-        Args:
-            from_user (str): Username do remetente.
-            to_user (str): Username do destinatário.
-            encrypted_content (str): Conteúdo criptografado da mensagem.
-            
-        Returns:
-            bool: True se a mensagem foi criada com sucesso, False caso contrário.
-        """
+      
         try:
             message_doc = {
                 "from_user": from_user,
@@ -148,15 +96,7 @@ class MessageRepository:
             return False
     
     def get_unread_messages_by_user(self, username: str) -> List[Dict]:
-        """
-        Busca todas as mensagens não lidas de um usuário.
-        
-        Args:
-            username (str): Username do destinatário.
-            
-        Returns:
-            List[Dict]: Lista de mensagens não lidas.
-        """
+     
         try:
             query = {
                 "to_user": username,
@@ -172,15 +112,7 @@ class MessageRepository:
             return []
     
     def get_unread_messages_count(self, username: str) -> int:
-        """
-        Conta o número de mensagens não lidas de um usuário.
-        
-        Args:
-            username (str): Username do destinatário.
-            
-        Returns:
-            int: Número de mensagens não lidas.
-        """
+   
         try:
             query = {
                 "to_user": username,
@@ -196,16 +128,8 @@ class MessageRepository:
             return 0
     
     def get_messages_by_sender(self, username: str, from_user: str) -> List[Dict]:
-        """
-        Busca mensagens de um remetente específico para um usuário.
         
-        Args:
-            username (str): Username do destinatário.
-            from_user (str): Username do remetente.
-            
-        Returns:
-            List[Dict]: Lista de mensagens do remetente.
-        """
+     
         try:
             query = {
                 "to_user": username,
@@ -222,15 +146,7 @@ class MessageRepository:
             return []
     
     def mark_message_as_read(self, message_id: str) -> bool:
-        """
-        Marca uma mensagem como lida.
-        
-        Args:
-            message_id (str): ID da mensagem a ser marcada como lida.
-            
-        Returns:
-            bool: True se a mensagem foi marcada como lida, False caso contrário.
-        """
+  
         try:
             from bson import ObjectId
             
@@ -251,15 +167,7 @@ class MessageRepository:
             return False
     
     def get_message_by_id(self, message_id: str) -> Optional[Dict]:
-        """
-        Busca uma mensagem pelo ID.
-        
-        Args:
-            message_id (str): ID da mensagem.
-            
-        Returns:
-            Optional[Dict]: Documento da mensagem se encontrado, None caso contrário.
-        """
+       
         try:
             from bson import ObjectId
             
@@ -273,4 +181,5 @@ class MessageRepository:
         except Exception as e:
             logger.error(f"Erro ao buscar mensagem {message_id}: {e}")
             return None
+
 
