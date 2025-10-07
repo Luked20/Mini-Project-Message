@@ -366,18 +366,7 @@ class MessageriaCLI:
         self.wait_for_enter()
     
     def show_available_users(self):
-        """
-        Exibe lista de usuários disponíveis para envio de mensagens.
-        
-        Este método implementa a funcionalidade de listagem de usuários:
-        1. Busca todos os usuários cadastrados no sistema
-        2. Exclui o usuário atual da lista
-        3. Exibe informações básicas de cada usuário
-        4. Mostra data de cadastro para referência
-        
-        A lista é útil para o usuário saber quais contatos estão disponíveis
-        para envio de mensagens antes de usar a funcionalidade de envio.
-        """
+    
         # Limpa a tela para interface limpa
         self.clear_screen()
         
@@ -412,23 +401,7 @@ class MessageriaCLI:
         self.wait_for_enter()
     
     def run(self):
-        """
-        Executa o loop principal da aplicação.
-        
-        Este método implementa o fluxo principal da aplicação:
-        1. Inicializa o sistema e conecta ao banco de dados
-        2. Exibe tela de login e autentica usuário
-        3. Executa loop principal com menu de opções
-        4. Processa escolhas do usuário
-        5. Gerencia encerramento da aplicação
-        
-        Tratamento de erros:
-        - Erros de inicialização do sistema
-        - Falhas de autenticação
-        - Erros no loop principal
-        - Interrupções do usuário (Ctrl+C)
-        - Erros críticos gerais
-        """
+ 
         try:
             # Inicializa o sistema e conecta ao banco de dados
             print("Inicializando sistema...")
@@ -488,20 +461,7 @@ class MessageriaCLI:
             system_service.shutdown()
 
 def main():
-    """
-    Função principal da aplicação.
-    
-    Esta função é o ponto de entrada da aplicação e implementa:
-    1. Criação da instância da CLI
-    2. Execução do loop principal
-    3. Tratamento de erros fatais
-    4. Encerramento limpo da aplicação
-    
-    Tratamento de erros:
-    - Interrupção do usuário (Ctrl+C)
-    - Erros fatais gerais
-    - Encerramento com código de erro apropriado
-    """
+
     try:
         # Cria instância da interface de linha de comando
         cli = MessageriaCLI()
@@ -520,3 +480,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
