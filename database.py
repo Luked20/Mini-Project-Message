@@ -23,12 +23,7 @@ class DatabaseManager:
         self.database_name = "chat"
     
     def connect(self):
-        """
-        Estabelece conexão com o MongoDB e cria as coleções necessárias.
-        
-        Returns:
-            bool: True se a conexão foi bem-sucedida, False caso contrário.
-        """
+    
         try:
             # Conecta ao MongoDB
             self.client = MongoClient(self.connection_string, serverSelectionTimeoutMS=5000)
@@ -86,12 +81,7 @@ class DatabaseManager:
             logger.error(f"Erro ao criar índices: {e}")
     
     def get_database(self):
-        """
-        Retorna a instância do banco de dados.
-        
-        Returns:
-            Database: Instância do banco de dados MongoDB.
-        """
+   
         return self.db
     
     def close_connection(self):
@@ -101,9 +91,7 @@ class DatabaseManager:
             logger.info("Conexão com MongoDB fechada.")
     
     def insert_mock_data(self):
-        """
-        Insere dados de mock (usuários de exemplo) se a coleção estiver vazia.
-        """
+        
         try:
             # Verifica se já existem usuários
             if self.db.users.count_documents({}) > 0:
@@ -128,4 +116,5 @@ class DatabaseManager:
 
 # Instância global do gerenciador de banco
 db_manager = DatabaseManager()
+
 
